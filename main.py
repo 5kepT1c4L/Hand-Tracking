@@ -17,12 +17,13 @@ while True:
     results = hands.process(imgRGB)
     
     if results.multi_hand_landmarks:
-        for handLms in results.multi_hand_landmarks:
+        for handLms in results.multi_hand_landmarks: # handLms = all the 21 landmarks
             mpDraw.draw_landmarks(img, handLms, mpHands.HAND_CONNECTIONS)
-            for id, lm in enumerate(handLms.landmarks):
+            for id, hand_landmarks in enumerate(handLms.landmark):
                 h, w, c = img.shape
-                cx, cy = int(lm.x * w), int(lm.y * h)
+                cx, cy = int(hand_landmarks.x * w), int(hand_landmarks.y * h)
                 print(f"Landmark {id}: {cx}, {cy}")
+                cv.circle(img, (cx, cy), 15, (255, 0, 255), cv.FILLED)
 
     current_time = time.time()
     fps = 1/(current_time-past_time)
