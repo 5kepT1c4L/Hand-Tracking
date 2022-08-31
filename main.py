@@ -19,6 +19,10 @@ while True:
     if results.multi_hand_landmarks:
         for handLms in results.multi_hand_landmarks:
             mpDraw.draw_landmarks(img, handLms, mpHands.HAND_CONNECTIONS)
+            for id, lm in enumerate(handLms.landmarks):
+                h, w, c = img.shape
+                cx, cy = int(lm.x * w), int(lm.y * h)
+                print(f"Landmark {id}: {cx}, {cy}")
 
     current_time = time.time()
     fps = 1/(current_time-past_time)
